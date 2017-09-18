@@ -104,7 +104,7 @@
 <meta property="og:description" content="Program-Adaptive Mutational Fuzzing摘要：设计了一个算法来最大化在黑盒mutational fuzzing中发现的bug数(输入为程序和种子)。给出一个程序种子对，利用在执行轨迹上白盒符号分析去检测输入的bit 位置的依赖，再利用此依赖关系去计算该程序种子对的最优突变率。相比其他工具，发现了37.2%的更多的bug。 1.INTRODUCTIONmutationa">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ljie123.github.io/2017/09/17/symfuzz/symfuzz_architucture.PNG">
-<meta property="og:updated_time" content="2017-09-18T12:48:10.579Z">
+<meta property="og:updated_time" content="2017-09-18T13:11:23.893Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="symfuzz">
 <meta name="twitter:description" content="Program-Adaptive Mutational Fuzzing摘要：设计了一个算法来最大化在黑盒mutational fuzzing中发现的bug数(输入为程序和种子)。给出一个程序种子对，利用在执行轨迹上白盒符号分析去检测输入的bit 位置的依赖，再利用此依赖关系去计算该程序种子对的最优突变率。相比其他工具，发现了37.2%的更多的bug。 1.INTRODUCTIONmutationa">
@@ -382,8 +382,7 @@
 <p>a systematic way of deciding a set of mutation ratios for a given program and a seed</p>
 </blockquote>
 <p>确定给定程序和种子的一组突变率的系统方法</p>
-<p>###A. Solving for an Optimal Mutation Ratio</p>
-<h3 id="B-Estimating-r"><a href="#B-Estimating-r" class="headerlink" title="B. Estimating r"></a>B. Estimating r</h3><h2 id="4-INPUT-BIT-DEPENDENCE-INFERENCE"><a href="#4-INPUT-BIT-DEPENDENCE-INFERENCE" class="headerlink" title="4.INPUT-BIT DEPENDENCE INFERENCE"></a>4.INPUT-BIT DEPENDENCE INFERENCE</h2><p>IBDI(INPUT-BIT DEPENDENCE INFERENCE)是从程序执行计算种子中每个位的输入位依赖性的过程。</p>
+<h3 id="A-Solving-for-an-Optimal-Mutation-Ratio"><a href="#A-Solving-for-an-Optimal-Mutation-Ratio" class="headerlink" title="A. Solving for an Optimal Mutation Ratio"></a>A. Solving for an Optimal Mutation Ratio</h3><h3 id="B-Estimating-r"><a href="#B-Estimating-r" class="headerlink" title="B. Estimating r"></a>B. Estimating r</h3><h2 id="4-INPUT-BIT-DEPENDENCE-INFERENCE"><a href="#4-INPUT-BIT-DEPENDENCE-INFERENCE" class="headerlink" title="4.INPUT-BIT DEPENDENCE INFERENCE"></a>4.INPUT-BIT DEPENDENCE INFERENCE</h2><p>IBDI(INPUT-BIT DEPENDENCE INFERENCE)是从程序执行计算种子中每个位的输入位依赖性的过程。</p>
 <h2 id="5-SYSTEM-DESIGN"><a href="#5-SYSTEM-DESIGN" class="headerlink" title="5.SYSTEM DESIGN"></a>5.SYSTEM DESIGN</h2><p><img src="/2017/09/17/symfuzz/symfuzz_architucture.PNG" alt="symfuzz_architucture"></p>
 <h3 id="5-1-Symbolic-analysis"><a href="#5-1-Symbolic-analysis" class="headerlink" title="5.1 Symbolic analysis"></a>5.1 Symbolic analysis</h3><p>on top of BAP</p>
 <p>several optimizations</p>
@@ -392,11 +391,9 @@
 <li>JIT and PD caching</li>
 <li>set memoization</li>
 </ul>
-<p>###5.2 Mutational Fuzzing</p>
-<p>To selecting test cases that have the exact Hamming distance K from the seed s, for any given K.</p>
+<h3 id="5-2-Mutational-Fuzzing"><a href="#5-2-Mutational-Fuzzing" class="headerlink" title="5.2 Mutational Fuzzing"></a>5.2 Mutational Fuzzing</h3><p>To selecting test cases that have the exact Hamming distance K from the seed s, for any given K.</p>
 <p>we use Floyd-Bentley’s algorithm to compute the subset.</p>
-<p>###5.3 Safe Stack Hash</p>
-<p>The rationale is that if two crashes have the same call-stack traces, then they are likely to have an equivalent final program state and thus, it is an evidence of having the same root cause.</p>
+<h3 id="5-3-Safe-Stack-Hash"><a href="#5-3-Safe-Stack-Hash" class="headerlink" title="5.3 Safe Stack Hash"></a>5.3 Safe Stack Hash</h3><p>The rationale is that if two crashes have the same call-stack traces, then they are likely to have an equivalent final program state and thus, it is an evidence of having the same root cause.</p>
 <p><em>problem:it can put a single bug into multiple buckets</em></p>
 <p><em>can significantly increase the number of bugs</em></p>
 <p>we employ a technique, called <strong>safe stack hash</strong>, which stops traversing the call stack when it finds an unreachable return address.</p>
@@ -573,7 +570,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Program-Adaptive-Mutational-Fuzzing"><span class="nav-number">1.</span> <span class="nav-text">Program-Adaptive Mutational Fuzzing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-INTRODUCTION"><span class="nav-number">1.1.</span> <span class="nav-text">1.INTRODUCTION</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Definition"><span class="nav-number">1.2.</span> <span class="nav-text">2.Definition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-MUTATION-RATIO-OPTIMIZATION"><span class="nav-number">1.3.</span> <span class="nav-text">3.MUTATION RATIO OPTIMIZATION</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#B-Estimating-r"><span class="nav-number">1.3.1.</span> <span class="nav-text">B. Estimating r</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-INPUT-BIT-DEPENDENCE-INFERENCE"><span class="nav-number">1.4.</span> <span class="nav-text">4.INPUT-BIT DEPENDENCE INFERENCE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-SYSTEM-DESIGN"><span class="nav-number">1.5.</span> <span class="nav-text">5.SYSTEM DESIGN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-Symbolic-analysis"><span class="nav-number">1.5.1.</span> <span class="nav-text">5.1 Symbolic analysis</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-EVALUATION"><span class="nav-number">1.6.</span> <span class="nav-text">6. EVALUATION</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Program-Adaptive-Mutational-Fuzzing"><span class="nav-number">1.</span> <span class="nav-text">Program-Adaptive Mutational Fuzzing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-INTRODUCTION"><span class="nav-number">1.1.</span> <span class="nav-text">1.INTRODUCTION</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Definition"><span class="nav-number">1.2.</span> <span class="nav-text">2.Definition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-MUTATION-RATIO-OPTIMIZATION"><span class="nav-number">1.3.</span> <span class="nav-text">3.MUTATION RATIO OPTIMIZATION</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-Solving-for-an-Optimal-Mutation-Ratio"><span class="nav-number">1.3.1.</span> <span class="nav-text">A. Solving for an Optimal Mutation Ratio</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-Estimating-r"><span class="nav-number">1.3.2.</span> <span class="nav-text">B. Estimating r</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-INPUT-BIT-DEPENDENCE-INFERENCE"><span class="nav-number">1.4.</span> <span class="nav-text">4.INPUT-BIT DEPENDENCE INFERENCE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-SYSTEM-DESIGN"><span class="nav-number">1.5.</span> <span class="nav-text">5.SYSTEM DESIGN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-Symbolic-analysis"><span class="nav-number">1.5.1.</span> <span class="nav-text">5.1 Symbolic analysis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-Mutational-Fuzzing"><span class="nav-number">1.5.2.</span> <span class="nav-text">5.2 Mutational Fuzzing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-Safe-Stack-Hash"><span class="nav-number">1.5.3.</span> <span class="nav-text">5.3 Safe Stack Hash</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-EVALUATION"><span class="nav-number">1.6.</span> <span class="nav-text">6. EVALUATION</span></a></li></ol></li></ol></div>
             
 
           </div>
