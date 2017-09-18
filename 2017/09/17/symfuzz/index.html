@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="fuzz,seed," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="Program-Adaptive Mutational Fuzzing摘要：设计了一个算法来最大化在黑盒mutational fuzzing中发现的bug数(输入为程序和种子)。给出一个程序种子对，利用在执行轨迹上白盒符号分析去检测输入的bit 位置的依赖，再利用此依赖关系去计算该程序种子对的最优突变率。相比其他工具，发现了37.2%的更多的bug。 1.INTRODUCTIONmutationa">
+<meta name="keywords" content="fuzz,seed">
+<meta property="og:type" content="article">
+<meta property="og:title" content="symfuzz">
+<meta property="og:url" content="http://Ljie123.github.io/2017/09/17/symfuzz/index.html">
+<meta property="og:site_name" content="Ljie&#39;s blog">
+<meta property="og:description" content="Program-Adaptive Mutational Fuzzing摘要：设计了一个算法来最大化在黑盒mutational fuzzing中发现的bug数(输入为程序和种子)。给出一个程序种子对，利用在执行轨迹上白盒符号分析去检测输入的bit 位置的依赖，再利用此依赖关系去计算该程序种子对的最优突变率。相比其他工具，发现了37.2%的更多的bug。 1.INTRODUCTIONmutationa">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="c:/Users/梁杰/Desktop/fuzz/pdf/8/symfuzz_architucture.PNG">
+<meta property="og:updated_time" content="2017-09-17T12:11:22.911Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="symfuzz">
+<meta name="twitter:description" content="Program-Adaptive Mutational Fuzzing摘要：设计了一个算法来最大化在黑盒mutational fuzzing中发现的bug数(输入为程序和种子)。给出一个程序种子对，利用在执行轨迹上白盒符号分析去检测输入的bit 位置的依赖，再利用此依赖关系去计算该程序种子对的最优突变率。相比其他工具，发现了37.2%的更多的bug。 1.INTRODUCTIONmutationa">
+<meta name="twitter:image" content="c:/Users/梁杰/Desktop/fuzz/pdf/8/symfuzz_architucture.PNG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://Ljie123.github.io/2017/09/17/symfuzz/"/>
+
+
+
+
+
+  <title>symfuzz | Ljie's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ljie's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://Ljie123.github.io/2017/09/17/symfuzz/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ljie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ljie's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">symfuzz</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-17T00:19:04+08:00">
+                2017-09-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Program-Adaptive-Mutational-Fuzzing"><a href="#Program-Adaptive-Mutational-Fuzzing" class="headerlink" title="Program-Adaptive Mutational Fuzzing"></a>Program-Adaptive Mutational Fuzzing</h1><p>摘要：设计了一个算法来最大化在黑盒mutational fuzzing中发现的bug数(输入为程序和种子)。给出一个程序种子对，利用在执行轨迹上白盒符号分析去检测输入的bit 位置的依赖，再利用此依赖关系去计算该程序种子对的最优突变率。相比其他工具，发现了37.2%的更多的bug。</p>
+<h2 id="1-INTRODUCTION"><a href="#1-INTRODUCTION" class="headerlink" title="1.INTRODUCTION"></a>1.INTRODUCTION</h2><p>mutational fuzzing很流行，很有用。fuzz configuration对fuzz的效果影响很大。</p>
+<blockquote>
+<p>The mutation ratio—the rate between the number of bits to modify and the number of total bits of a seed, which is used to confine the Hamming distance from the seed to generated test cases—is a continuous parameter, and thus it can have arbitrary many values</p>
+</blockquote>
+<p><strong>mutation ratio 突变比率 </strong>- 修改的位数与种子总位数之间的比例</p>
+<p><strong>FCS</strong>(fuzz configuration scheduling)探索参数的各种可能组合。当参数空间很大，FCS很难，例如mutation ratio。现有方法是选一个或者在一定范围内随机选。主要问题是手动和非适应性。first，分析师根据经验选择fuzzing参数，比如zzuf。second,如果不手动很难适应程序。比如BFF,将突变率分成intervals，在此之上FCS。FuzzSim和zzuf可以使用默认突变率。AFL-fuzz采用几个位翻转突变策略，但固定位数。</p>
+<p>研究的主要驱动问题在于：自适应的选择mutation ratio能帮助最大化发现的bug数吗？做了实验发现可以。所以问题在于如何计算这些突变率。</p>
+<p>我们引入了一个名为<strong>SYMFUZZ</strong>的系统，该系统根据发现崩溃的概率确定给定程序 - 种子对的最佳突变率。SYMFUZZ通过利用白盒技术增加black-box突变fuzzing，分析程序执行，实现fuzzing的有效突变率。接着它使用生成的突变率来执行传统黑盒测试。虽然白盒技术经常需要大量成本分析，但是每个编程对只需要一次作为预处理步骤。</p>
+<p>我们工作的主要思路，可以从程序的种子的输入位之间的依赖关系推导出最大化fuzzing效率的期望的突变比。</p>
+<blockquote>
+<p>Mutational fuzzing is a software testing technique where test cases are derived from a seed—typically a well-formed input— by partially mutating the seed.</p>
+</blockquote>
+<p><strong>mutational fuzzing</strong> 一种软件测试技术，其中测试用例来自种子 - 通常是良好的输入 - 通过部分突变种子。</p>
+<p>本文使用mutational fuzzing分为两步，一是利用位翻转输入种子来产生测试用例。二是利用测试用例来测量program发现crash。我们只考虑了三个参数，program,seed 和mutation ratio. SYMFUZZ 比BFF发现了39.5%的更多的bug。</p>
+<p>本文有如下贡献</p>
+<ol>
+<li><p>我们设计一个数学框架来形式化突变fuzzing，并展示如何对(用)输入位之间的依赖关系建立(建模)突变fuzzing的失败率。</p>
+</li>
+<li><p>我们引入一种称为突变比优化的新方法来选择突变率，以最大化发现bug的可能</p>
+</li>
+<li><p>我们结合了黑白测试去最大化fuzzing的效率。据我们所知，我们是第一个利用白盒分析来优化黑盒测试的参数的</p>
+</li>
+<li><p>我们设计了mutational fuzzing 框架SYMFUZZ并实现了我们的技术。这是第一个容易进行数学分析的突变模糊器</p>
+</li>
+<li><p>数据代码开源</p>
+<p><a href="http://security.ece.cmu.edu/symfuzz/" target="_blank" rel="external">http://security.ece.cmu.edu/symfuzz/</a></p>
+<p><a href="https://github.com/maurer/symfuzz" target="_blank" rel="external">https://github.com/maurer/symfuzz</a></p>
+</li>
+</ol>
+<h2 id="2-Definition"><a href="#2-Definition" class="headerlink" title="2.Definition"></a>2.Definition</h2><h2 id="3-MUTATION-RATIO-OPTIMIZATION"><a href="#3-MUTATION-RATIO-OPTIMIZATION" class="headerlink" title="3.MUTATION RATIO OPTIMIZATION"></a>3.MUTATION RATIO OPTIMIZATION</h2><blockquote>
+<p>a systematic way of deciding a set of mutation ratios for a given program and a seed</p>
+</blockquote>
+<p>确定给定程序和种子的一组突变率的系统方法</p>
+<p>###A. Solving for an Optimal Mutation Ratio</p>
+<h3 id="B-Estimating-r"><a href="#B-Estimating-r" class="headerlink" title="B. Estimating r"></a>B. Estimating r</h3><h2 id="4-INPUT-BIT-DEPENDENCE-INFERENCE"><a href="#4-INPUT-BIT-DEPENDENCE-INFERENCE" class="headerlink" title="4.INPUT-BIT DEPENDENCE INFERENCE"></a>4.INPUT-BIT DEPENDENCE INFERENCE</h2><p>IBDI(INPUT-BIT DEPENDENCE INFERENCE)是从程序执行计算种子中每个位的输入位依赖性的过程。</p>
+<h2 id="5-SYSTEM-DESIGN"><a href="#5-SYSTEM-DESIGN" class="headerlink" title="5.SYSTEM DESIGN"></a>5.SYSTEM DESIGN</h2><p><img src="C:\Users\梁杰\Desktop\fuzz\pdf\8\symfuzz_architucture.PNG" alt="symfuzz_architucture"></p>
+<h3 id="5-1-Symbolic-analysis"><a href="#5-1-Symbolic-analysis" class="headerlink" title="5.1 Symbolic analysis"></a>5.1 Symbolic analysis</h3><p>on top of BAP</p>
+<p>several optimizations</p>
+<ul>
+<li>tainted-block optimization</li>
+<li>JIT and PD caching</li>
+<li>set memoization</li>
+</ul>
+<p>###5.2 Mutational Fuzzing</p>
+<p>To selecting test cases that have the exact Hamming distance K from the seed s, for any given K.</p>
+<p>we use Floyd-Bentley’s algorithm to compute the subset.</p>
+<p>###5.3 Safe Stack Hash</p>
+<p>The rationale is that if two crashes have the same call-stack traces, then they are likely to have an equivalent final program state and thus, it is an evidence of having the same root cause.</p>
+<p><em>problem:it can put a single bug into multiple buckets</em></p>
+<p><em>can significantly increase the number of bugs</em></p>
+<p>we employ a technique, called <strong>safe stack hash</strong>, which stops traversing the call stack when it finds an unreachable return address.</p>
+<h2 id="6-EVALUATION"><a href="#6-EVALUATION" class="headerlink" title="6. EVALUATION"></a>6. EVALUATION</h2><p>In total, we have spent 8,000 CPU hours fuzzing the applications, and found 114 previously unknown bugs based on our safe stack hash.</p>
+<ol>
+<li><p>相比BFF,zzuf</p>
+<p> BFF found 43 bugs; zzuf found 38 bugs; and SYMFUZZ found 59 bugs</p>
+</li>
+<li><p>相比AFL-fuzz 1.45b(we replaced the first phase of AFLfuzz with SYMFUZZ’s mutation algorithm with mutation ratio optimization)</p>
+<p> we found 54 bugs from the original AFL-fuzz, and 64 bugs from the modified AFL-fuzz</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/fuzz/" rel="tag"># fuzz</a>
+          
+            <a href="/tags/seed/" rel="tag"># seed</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/17/开始写博客了/" rel="next" title="开始写博客了">
+                <i class="fa fa-chevron-left"></i> 开始写博客了
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <p class="site-author-name" itemprop="name">Ljie</p>
+            <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Program-Adaptive-Mutational-Fuzzing"><span class="nav-number">1.</span> <span class="nav-text">Program-Adaptive Mutational Fuzzing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-INTRODUCTION"><span class="nav-number">1.1.</span> <span class="nav-text">1.INTRODUCTION</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Definition"><span class="nav-number">1.2.</span> <span class="nav-text">2.Definition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-MUTATION-RATIO-OPTIMIZATION"><span class="nav-number">1.3.</span> <span class="nav-text">3.MUTATION RATIO OPTIMIZATION</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#B-Estimating-r"><span class="nav-number">1.3.1.</span> <span class="nav-text">B. Estimating r</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-INPUT-BIT-DEPENDENCE-INFERENCE"><span class="nav-number">1.4.</span> <span class="nav-text">4.INPUT-BIT DEPENDENCE INFERENCE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-SYSTEM-DESIGN"><span class="nav-number">1.5.</span> <span class="nav-text">5.SYSTEM DESIGN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-Symbolic-analysis"><span class="nav-number">1.5.1.</span> <span class="nav-text">5.1 Symbolic analysis</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-EVALUATION"><span class="nav-number">1.6.</span> <span class="nav-text">6. EVALUATION</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-ljie"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Powered By &mdash; Ljie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">个人专属</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">博客 &mdash;  Ljie</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
