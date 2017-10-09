@@ -60,9 +60,9 @@
     </summary>
     
     
-      <category term="fuzz" scheme="http://Ljie123.github.io/tags/fuzz/"/>
-    
       <category term="symbolic execution" scheme="http://Ljie123.github.io/tags/symbolic-execution/"/>
+    
+      <category term="fuzz" scheme="http://Ljie123.github.io/tags/fuzz/"/>
     
   </entry>
   
