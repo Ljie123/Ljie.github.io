@@ -45,9 +45,9 @@
         
         <tags>
             
-            <tag> symbolic execution </tag>
-            
             <tag> fuzz </tag>
+            
+            <tag> symbolic execution </tag>
             
         </tags>
         
