@@ -42,9 +42,9 @@
         
         <tags>
             
-            <tag> fuzz </tag>
-            
             <tag> symbolic execution </tag>
+            
+            <tag> fuzz </tag>
             
         </tags>
         
