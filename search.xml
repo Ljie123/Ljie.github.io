@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+    
+    <entry>
+      <title><![CDATA[git 使用]]></title>
+      <url>/2017/10/09/git-%E4%BD%BF%E7%94%A8/</url>
+      <content type="html"><![CDATA[<h1 id="git-安装"><a href="#git-安装" class="headerlink" title="git 安装"></a>git 安装</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install git</div></pre></td></tr></table></figure>
+<h1 id="git基本操作"><a href="#git基本操作" class="headerlink" title="git基本操作"></a>git基本操作</h1><h2 id="选择一个文件夹"><a href="#选择一个文件夹" class="headerlink" title="选择一个文件夹"></a>选择一个文件夹</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git init</div></pre></td></tr></table></figure>
+<p>使用 <figure class="highlight ls"><figcaption><span>-ah ```查看隐藏的.git目录</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">## 把文件添加到仓库</span></div><div class="line"></div><div class="line">假设文件为readme.txt</div></pre></td></tr></table></figure></p>
+<p>git add readme.txt<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## 把文件提交到仓库</div></pre></td></tr></table></figure></p>
+<p>git commit -m “wrote a readme file”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">`-m`后面输入的是本次提交的说明</div><div class="line"></div><div class="line">`commit`可以一次提交很多文件，所以你可以多次`add`不同的文件，如</div></pre></td></tr></table></figure></p>
+<p>$ git add file1.txt<br>$ git add file2.txt file3.txt<br>$ git commit -m “add 3 files.”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## 查看状态</div></pre></td></tr></table></figure></p>
+<p>$ git status<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## 查看修改</div></pre></td></tr></table></figure></p>
+<p>$ git diff readme.txt<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## 查看历史纪录</div></pre></td></tr></table></figure></p>
+<p>$ git log<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure></p>
+<p>$ git log –pretty=oneline<br>```</p>
+<p>会看到的一大串类似<code>3628164...882e1e0</code>的是<code>commit id</code>（版本号）</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 使用说明 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> git </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[symbolic execution]]></title>
+      <url>/2017/09/19/symbolic-execution/</url>
+      <content type="html"><![CDATA[<h1 id="Symbolic-execution"><a href="#Symbolic-execution" class="headerlink" title="Symbolic execution"></a>Symbolic execution</h1><p>​    在符号执行中，一个程序的输入被视为符号值。对于程序中每一个路径，或者执行或未执行分支的序列，我们收集路径条件(<em>path condition</em>)，即使程序必须执行那条路径的输入必须满足的条件集合。然后，为了确定导致错误的特定程序路径是否可行，我们将路径条件传递给决策过程。</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> fuzz </tag>
+            
+            <tag> symbolic execution </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[symfuzz]]></title>
+      <url>/2017/09/17/symfuzz/</url>
+      <content type="html"><![CDATA[<h1 id="Program-Adaptive-Mutational-Fuzzing"><a href="#Program-Adaptive-Mutational-Fuzzing" class="headerlink" title="Program-Adaptive Mutational Fuzzing"></a>Program-Adaptive Mutational Fuzzing</h1><p>摘要：设计了一个算法来最大化在黑盒mutational fuzzing中发现的bug数(输入为程序和种子)。给出一个程序种子对，利用在执行轨迹上白盒符号分析去检测输入的bit 位置的依赖，再利用此依赖关系去计算该程序种子对的最优突变率。相比其他工具，发现了37.2%的更多的bug。</p>
+<h2 id="1-INTRODUCTION"><a href="#1-INTRODUCTION" class="headerlink" title="1.INTRODUCTION"></a>1.INTRODUCTION</h2><p>mutational fuzzing很流行，很有用。fuzz configuration对fuzz的效果影响很大。</p>
+<blockquote>
+<p>The mutation ratio—the rate between the number of bits to modify and the number of total bits of a seed, which is used to confine the Hamming distance from the seed to generated test cases—is a continuous parameter, and thus it can have arbitrary many values</p>
+</blockquote>
+<p><strong>mutation ratio 突变比率 </strong>- 修改的位数与种子总位数之间的比例</p>
+<p><strong>FCS</strong>(fuzz configuration scheduling)探索参数的各种可能组合。当参数空间很大，FCS很难，例如mutation ratio。现有方法是选一个或者在一定范围内随机选。主要问题是手动和非适应性。first，分析师根据经验选择fuzzing参数，比如zzuf。second,如果不手动很难适应程序。比如BFF,将突变率分成intervals，在此之上FCS。FuzzSim和zzuf可以使用默认突变率。AFL-fuzz采用几个位翻转突变策略，但固定位数。</p>
+<p>研究的主要驱动问题在于：自适应的选择mutation ratio能帮助最大化发现的bug数吗？做了实验发现可以。所以问题在于如何计算这些突变率。</p>
+<p>我们引入了一个名为<strong>SYMFUZZ</strong>的系统，该系统根据发现崩溃的概率确定给定程序 - 种子对的最佳突变率。SYMFUZZ通过利用白盒技术增加black-box突变fuzzing，分析程序执行，实现fuzzing的有效突变率。接着它使用生成的突变率来执行传统黑盒测试。虽然白盒技术经常需要大量成本分析，但是每个编程对只需要一次作为预处理步骤。</p>
+<p>我们工作的主要思路，可以从程序的种子的输入位之间的依赖关系推导出最大化fuzzing效率的期望的突变比。</p>
+<blockquote>
+<p>Mutational fuzzing is a software testing technique where test cases are derived from a seed—typically a well-formed input— by partially mutating the seed.</p>
+</blockquote>
+<p><strong>mutational fuzzing</strong> 一种软件测试技术，其中测试用例来自种子 - 通常是良好的输入 - 通过部分突变种子。</p>
+<p>本文使用mutational fuzzing分为两步，一是利用位翻转输入种子来产生测试用例。二是利用测试用例来测量program发现crash。我们只考虑了三个参数，program,seed 和mutation ratio. SYMFUZZ 比BFF发现了39.5%的更多的bug。</p>
+<p>本文有如下贡献</p>
+<ol>
+<li><p>我们设计一个数学框架来形式化突变fuzzing，并展示如何对(用)输入位之间的依赖关系建立(建模)突变fuzzing的失败率。</p>
+</li>
+<li><p>我们引入一种称为突变比优化的新方法来选择突变率，以最大化发现bug的可能</p>
+</li>
+<li><p>我们结合了黑白测试去最大化fuzzing的效率。据我们所知，我们是第一个利用白盒分析来优化黑盒测试的参数的</p>
+</li>
+<li><p>我们设计了mutational fuzzing 框架SYMFUZZ并实现了我们的技术。这是第一个容易进行数学分析的突变模糊器</p>
+</li>
+<li><p>数据代码开源</p>
+<p><a href="http://security.ece.cmu.edu/symfuzz/" target="_blank" rel="external">http://security.ece.cmu.edu/symfuzz/</a></p>
+<p><a href="https://github.com/maurer/symfuzz" target="_blank" rel="external">https://github.com/maurer/symfuzz</a></p>
+</li>
+</ol>
+<h2 id="2-Definition"><a href="#2-Definition" class="headerlink" title="2.Definition"></a>2.Definition</h2><h2 id="3-MUTATION-RATIO-OPTIMIZATION"><a href="#3-MUTATION-RATIO-OPTIMIZATION" class="headerlink" title="3.MUTATION RATIO OPTIMIZATION"></a>3.MUTATION RATIO OPTIMIZATION</h2><blockquote>
+<p>a systematic way of deciding a set of mutation ratios for a given program and a seed</p>
+</blockquote>
+<p>确定给定程序和种子的一组突变率的系统方法</p>
+<h3 id="A-Solving-for-an-Optimal-Mutation-Ratio"><a href="#A-Solving-for-an-Optimal-Mutation-Ratio" class="headerlink" title="A. Solving for an Optimal Mutation Ratio"></a>A. Solving for an Optimal Mutation Ratio</h3><h3 id="B-Estimating-r"><a href="#B-Estimating-r" class="headerlink" title="B. Estimating r"></a>B. Estimating r</h3><h2 id="4-INPUT-BIT-DEPENDENCE-INFERENCE"><a href="#4-INPUT-BIT-DEPENDENCE-INFERENCE" class="headerlink" title="4.INPUT-BIT DEPENDENCE INFERENCE"></a>4.INPUT-BIT DEPENDENCE INFERENCE</h2><p>IBDI(INPUT-BIT DEPENDENCE INFERENCE)是从程序执行计算种子中每个位的输入位依赖性的过程。</p>
+<h2 id="5-SYSTEM-DESIGN"><a href="#5-SYSTEM-DESIGN" class="headerlink" title="5.SYSTEM DESIGN"></a>5.SYSTEM DESIGN</h2><p><img src="/2017/09/17/symfuzz/symfuzz_architucture.PNG" alt="symfuzz_architucture"></p>
+<h3 id="5-1-Symbolic-analysis"><a href="#5-1-Symbolic-analysis" class="headerlink" title="5.1 Symbolic analysis"></a>5.1 Symbolic analysis</h3><p>on top of BAP</p>
+<p>several optimizations</p>
+<ul>
+<li>tainted-block optimization</li>
+<li>JIT and PD caching</li>
+<li>set memoization</li>
+</ul>
+<h3 id="5-2-Mutational-Fuzzing"><a href="#5-2-Mutational-Fuzzing" class="headerlink" title="5.2 Mutational Fuzzing"></a>5.2 Mutational Fuzzing</h3><p>To selecting test cases that have the exact Hamming distance K from the seed s, for any given K.</p>
+<p>we use Floyd-Bentley’s algorithm to compute the subset.</p>
+<h3 id="5-3-Safe-Stack-Hash"><a href="#5-3-Safe-Stack-Hash" class="headerlink" title="5.3 Safe Stack Hash"></a>5.3 Safe Stack Hash</h3><p>The rationale is that if two crashes have the same call-stack traces, then they are likely to have an equivalent final program state and thus, it is an evidence of having the same root cause.</p>
+<p><em>problem:it can put a single bug into multiple buckets</em></p>
+<p><em>can significantly increase the number of bugs</em></p>
+<p>we employ a technique, called <strong>safe stack hash</strong>, which stops traversing the call stack when it finds an unreachable return address.</p>
+<h2 id="6-EVALUATION"><a href="#6-EVALUATION" class="headerlink" title="6. EVALUATION"></a>6. EVALUATION</h2><p>In total, we have spent 8,000 CPU hours fuzzing the applications, and found 114 previously unknown bugs based on our safe stack hash.</p>
+<ol>
+<li><p>相比BFF,zzuf</p>
+<p> BFF found 43 bugs; zzuf found 38 bugs; and SYMFUZZ found 59 bugs</p>
+</li>
+<li><p>相比AFL-fuzz 1.45b(we replaced the first phase of AFLfuzz with SYMFUZZ’s mutation algorithm with mutation ratio optimization)</p>
+<p> we found 54 bugs from the original AFL-fuzz, and 64 bugs from the modified AFL-fuzz</p>
+</li>
+</ol>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> fuzz </tag>
+            
+            <tag> seed </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[开始写博客了]]></title>
+      <url>/2017/09/17/%E5%BC%80%E5%A7%8B%E5%86%99%E5%8D%9A%E5%AE%A2%E4%BA%86/</url>
+      <content type="html"><![CDATA[<p>终于用搭好了自己的博客的框架，准备开始写自己的博客了。</p>
+<p>准备把自己平时做的东西，配置工具的方法以及看的论文的总结统统放到博客上，</p>
+<p>哈哈哈！</p>
+<hr>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Hello World]]></title>
+      <url>/2017/09/15/hello-world/</url>
+      <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+      
+        
+    </entry>
+    
+  
+  
+</search>
