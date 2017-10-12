@@ -13,7 +13,7 @@
 <ul>
 <li>-p1    忽略补丁中的路径的第一级目录</li>
 </ul>
-<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">diff 【选项】 源文件（夹） 目的文件（夹）</div></pre></td></tr></table></figure>
+<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">diff [options] [source] [target] &gt; [name.patch]</div></pre></td></tr></table></figure>
 <ul>
 <li>-u 显示有差异行的前后几行(上下文), 默认是前后各3行, 这样, patch中带有更多的信息，也可以用-u5等指定输出更多上下文</li>
 <li>-p 显示代码所在的c函数的信息.</li>

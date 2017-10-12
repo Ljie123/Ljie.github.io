@@ -105,7 +105,7 @@
 <meta property="og:site_name" content="Ljie&#39;s blog">
 <meta property="og:description" content="通过diff工具生成补丁, patch工具打上补丁例子为单个文件生成补丁1$ diff -up linux-2.6.28.8/net/sunrpc/svc.orig.c linux-2.6.28.8/net/sunrpc/svc.c 产生输出 123diff -up linux-2.6.28.8/net/sunrpc/svc.orig.c 2009-03-17 08:50:04.000000000">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-12T07:06:51.718Z">
+<meta property="og:updated_time" content="2017-10-12T07:11:48.295Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux下patch的使用">
 <meta name="twitter:description" content="通过diff工具生成补丁, patch工具打上补丁例子为单个文件生成补丁1$ diff -up linux-2.6.28.8/net/sunrpc/svc.orig.c linux-2.6.28.8/net/sunrpc/svc.c 产生输出 123diff -up linux-2.6.28.8/net/sunrpc/svc.orig.c 2009-03-17 08:50:04.000000000">
@@ -428,7 +428,7 @@
 <ul>
 <li>-p1    忽略补丁中的路径的第一级目录</li>
 </ul>
-<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">diff 【选项】 源文件（夹） 目的文件（夹）</div></pre></td></tr></table></figure>
+<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">diff [options] [source] [target] &gt; [name.patch]</div></pre></td></tr></table></figure>
 <ul>
 <li>-u 显示有差异行的前后几行(上下文), 默认是前后各3行, 这样, patch中带有更多的信息，也可以用-u5等指定输出更多上下文</li>
 <li>-p 显示代码所在的c函数的信息.</li>
