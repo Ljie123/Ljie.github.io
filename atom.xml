@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://Ljie123.github.io/"/>
-  <updated>2017-10-12T12:17:37.254Z</updated>
+  <updated>2017-10-12T13:23:14.128Z</updated>
   <id>http://Ljie123.github.io/</id>
   
   <author>
@@ -15,6 +15,56 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>C语言中的__FILE__、__LINE__和#line</title>
+    <link href="http://Ljie123.github.io/2017/10/12/C%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84-FILE-%E3%80%81-LINE-%E5%92%8C-line/"/>
+    <id>http://Ljie123.github.io/2017/10/12/C语言中的-FILE-、-LINE-和-line/</id>
+    <published>2017-10-12T13:20:57.000Z</published>
+    <updated>2017-10-12T13:23:14.128Z</updated>
+    
+    <content type="html"><![CDATA[<p>C语言中的<strong>FILE</strong>用以指示本行语句所在源文件的文件名</p><p>C语言中的<strong>LINE</strong>用以指示本行语句在源文件中的位置信息，可以通过语句#line来重新设定<strong>LINE</strong>的值</p><p>另外gcc还支持<strong>func</strong>,它指示所在的函数</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;C语言中的&lt;strong&gt;FILE&lt;/strong&gt;用以指示本行语句所在源文件的文件名&lt;/p&gt;
+&lt;p&gt;C语言中的&lt;strong&gt;LINE&lt;/strong&gt;用以指示本行语句在源文件中的位置信息，可以通过语句#line来重新设定&lt;strong&gt;LINE&lt;/strong&gt;的值&lt;/
+      
+    
+    </summary>
+    
+      <category term="语言学习" scheme="http://Ljie123.github.io/categories/%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="C" scheme="http://Ljie123.github.io/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>运算符</title>
+    <link href="http://Ljie123.github.io/2017/10/12/%E8%BF%90%E7%AE%97%E7%AC%A6/"/>
+    <id>http://Ljie123.github.io/2017/10/12/运算符/</id>
+    <published>2017-10-12T12:26:57.000Z</published>
+    <updated>2017-10-12T12:27:52.892Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h1><p>&lt;&lt;    左移运算符，相当于乘以2</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;运算符&quot;&gt;&lt;a href=&quot;#运算符&quot; class=&quot;headerlink&quot; title=&quot;运算符&quot;&gt;&lt;/a&gt;运算符&lt;/h1&gt;&lt;p&gt;&amp;lt;&amp;lt;    左移运算符，相当于乘以2&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="语言学习" scheme="http://Ljie123.github.io/categories/%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>inttypes.h</title>
@@ -48,7 +98,7 @@
     <published>2017-10-12T06:50:58.000Z</published>
     <updated>2017-10-12T07:11:48.295Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="通过diff工具生成补丁-patch工具打上补丁"><a href="#通过diff工具生成补丁-patch工具打上补丁" class="headerlink" title="通过diff工具生成补丁, patch工具打上补丁"></a>通过diff工具生成补丁, patch工具打上补丁</h1><h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><h3 id="为单个文件生成补丁"><a href="#为单个文件生成补丁" class="headerlink" title="为单个文件生成补丁"></a>为单个文件生成补丁</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> diff -up linux-2.6.28.8/net/sunrpc/svc.orig.c linux-2.6.28.8/net/sunrpc/svc.c</span></div></pre></td></tr></table></figure><p>产生输出</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">diff -up linux-2.6.28.8/net/sunrpc/svc.orig.c 2009-03-17 08:50:04.000000000 +0800</div><div class="line">+++ linux-2.6.28.8/net/sunrpc/svc.c 2009-03-30 19:18:41.859375000 +0800</div><div class="line">@@ -1050,11 +1050,11 @@ svc_process(struct svc_rqst *rqstp)</div></pre></td></tr></table></figure><h3 id="为多个文件生成补丁"><a href="#为多个文件生成补丁" class="headerlink" title="为多个文件生成补丁"></a>为多个文件生成补丁</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> diff -uprN linux-2.6.28.8.orig/net/sunrpc/ linux-2.6.28.8/net/sunrpc/</span></div></pre></td></tr></table></figure><h3 id="打补丁"><a href="#打补丁" class="headerlink" title="打补丁"></a>打补丁</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> patch -p1 &lt; patch1.diff</span></div></pre></td></tr></table></figure><ul><li>-p1    忽略补丁中的路径的第一级目录</li></ul><h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">diff [options] [source] [target] &gt; [name.patch]</div></pre></td></tr></table></figure><ul><li>-u 显示有差异行的前后几行(上下文), 默认是前后各3行, 这样, patch中带有更多的信息，也可以用-u5等指定输出更多上下文</li><li>-p 显示代码所在的c函数的信息.</li><li>-N选项确保补丁文件将正确地处理已经创建或删除文件的情况</li><li>-E, -b, -w, -B, –strip-trailing-cr 忽略各种空白</li><li>-r递归</li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">patch -pNUM &lt; patchfile</div></pre></td></tr></table></figure><ul><li>-p Num忽略几层文件夹</li><li>-E选项说明如果发现了空文件，那么就删除它</li><li>-R取消打过的补丁</li></ul>]]></content>
+    <content type="html"><![CDATA[<h1 id="通过diff工具生成补丁-patch工具打上补丁"><a href="#通过diff工具生成补丁-patch工具打上补丁" class="headerlink" title="通过diff工具生成补丁, patch工具打上补丁"></a>通过diff工具生成补丁, patch工具打上补丁</h1><h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><h3 id="为单个文件生成补丁"><a href="#为单个文件生成补丁" class="headerlink" title="为单个文件生成补丁"></a>为单个文件生成补丁</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> diff -up linux-2.6.28.8/net/sunrpc/svc.orig.c linux-2.6.28.8/net/sunrpc/svc.c</div></pre></td></tr></table></figure><p>产生输出</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">diff -up linux-2.6.28.8/net/sunrpc/svc.orig.c 2009-03-17 08:50:04.000000000 +0800</div><div class="line">+++ linux-2.6.28.8/net/sunrpc/svc.c 2009-03-30 19:18:41.859375000 +0800</div><div class="line">@@ -1050,11 +1050,11 @@ svc_process(struct svc_rqst *rqstp)</div></pre></td></tr></table></figure><h3 id="为多个文件生成补丁"><a href="#为多个文件生成补丁" class="headerlink" title="为多个文件生成补丁"></a>为多个文件生成补丁</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> diff -uprN linux-2.6.28.8.orig/net/sunrpc/ linux-2.6.28.8/net/sunrpc/</div></pre></td></tr></table></figure><h3 id="打补丁"><a href="#打补丁" class="headerlink" title="打补丁"></a>打补丁</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> patch -p1 &lt; patch1.diff</div></pre></td></tr></table></figure><ul><li>-p1    忽略补丁中的路径的第一级目录</li></ul><h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">diff [options] [source] [target] &gt; [name.patch]</div></pre></td></tr></table></figure><ul><li>-u 显示有差异行的前后几行(上下文), 默认是前后各3行, 这样, patch中带有更多的信息，也可以用-u5等指定输出更多上下文</li><li>-p 显示代码所在的c函数的信息.</li><li>-N选项确保补丁文件将正确地处理已经创建或删除文件的情况</li><li>-E, -b, -w, -B, –strip-trailing-cr 忽略各种空白</li><li>-r递归</li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">patch -pNUM &lt; patchfile</div></pre></td></tr></table></figure><ul><li>-p Num忽略几层文件夹</li><li>-E选项说明如果发现了空文件，那么就删除它</li><li>-R取消打过的补丁</li></ul>]]></content>
     
     <summary type="html">
     

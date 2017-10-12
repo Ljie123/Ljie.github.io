@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="good" />
+  <meta name="keywords" content="C," />
 
 
 
@@ -97,13 +97,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Ljie&#39;s blog">
-<meta property="og:url" content="http://Ljie123.github.io/archives/2017/10/index.html">
+<meta name="description" content="C语言中的FILE用以指示本行语句所在源文件的文件名 C语言中的LINE用以指示本行语句在源文件中的位置信息，可以通过语句#line来重新设定LINE的值 另外gcc还支持func,它指示所在的函数">
+<meta name="keywords" content="C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C语言中的__FILE__、__LINE__和#line">
+<meta property="og:url" content="http://Ljie123.github.io/2017/10/12/C语言中的-FILE-、-LINE-和-line/index.html">
 <meta property="og:site_name" content="Ljie&#39;s blog">
+<meta property="og:description" content="C语言中的FILE用以指示本行语句所在源文件的文件名 C语言中的LINE用以指示本行语句在源文件中的位置信息，可以通过语句#line来重新设定LINE的值 另外gcc还支持func,它指示所在的函数">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-10-12T13:23:14.128Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ljie&#39;s blog">
+<meta name="twitter:title" content="C语言中的__FILE__、__LINE__和#line">
+<meta name="twitter:description" content="C语言中的FILE用以指示本行语句所在源文件的文件名 C语言中的LINE用以指示本行语句在源文件中的位置信息，可以通过语句#line来重新设定LINE的值 另外gcc还支持func,它指示所在的函数">
 
 
 
@@ -133,13 +138,13 @@
 
 
 
-  <link rel="canonical" href="http://Ljie123.github.io/archives/2017/10/"/>
+  <link rel="canonical" href="http://Ljie123.github.io/2017/10/12/C语言中的-FILE-、-LINE-和-line/"/>
 
 
 
 
 
-  <title>归档 | Ljie's blog</title>
+  <title>C语言中的__FILE__、__LINE__和#line | Ljie's blog</title>
   
 
 
@@ -158,7 +163,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -296,222 +301,187 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://Ljie123.github.io/2017/10/12/C语言中的-FILE-、-LINE-和-line/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ljie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/timg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ljie's blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">C语言中的__FILE__、__LINE__和#line</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-12T21:20:57+08:00">
+                2017-10-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 8 篇日志。 继续努力。
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/语言学习/" itemprop="url" rel="index">
+                    <span itemprop="name">语言学习</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2017">2017</h1>
-          </div>
-        
-        
 
-        
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/10/12/C语言中的-FILE-、-LINE-和-line/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/10/12/C语言中的-FILE-、-LINE-和-line/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/10/12/C语言中的-FILE-、-LINE-和-line/" itemprop="url">
-              
-                <span itemprop="name">C语言中的__FILE__、__LINE__和#line</span>
-              
-            </a>
-        
-      </h2>
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-10-12T21:20:57+08:00"
-              content="2017-10-12" >
-          10-12
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+          
 
+        </div>
+      </header>
+    
 
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/10/12/运算符/" itemprop="url">
-              
-                <span itemprop="name">运算符</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-10-12T20:26:57+08:00"
-              content="2017-10-12" >
-          10-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/10/12/inttypes-h/" itemprop="url">
-              
-                <span itemprop="name">inttypes.h</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-10-12T20:05:05+08:00"
-              content="2017-10-12" >
-          10-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/10/12/linux下patch的使用/" itemprop="url">
-              
-                <span itemprop="name">linux下patch的使用</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-10-12T14:50:58+08:00"
-              content="2017-10-12" >
-          10-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <p>C语言中的<strong>FILE</strong>用以指示本行语句所在源文件的文件名</p>
+<p>C语言中的<strong>LINE</strong>用以指示本行语句在源文件中的位置信息，可以通过语句#line来重新设定<strong>LINE</strong>的值</p>
+<p>另外gcc还支持<strong>func</strong>,它指示所在的函数</p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/10/09/git-使用/" itemprop="url">
-              
-                <span itemprop="name">git 使用</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-10-09T09:47:12+08:00"
-              content="2017-10-09" >
-          10-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/12/运算符/" rel="next" title="运算符">
+                <i class="fa fa-chevron-left"></i> 运算符
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -519,6 +489,17 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -753,6 +734,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
 
   
 
@@ -770,6 +755,18 @@
       <script id="dsq-count-scr" src="https://ljie123-github-io.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://Ljie123.github.io/2017/10/12/C语言中的-FILE-、-LINE-和-line/';
+          this.page.identifier = '2017/10/12/C语言中的-FILE-、-LINE-和-line/';
+          this.page.title = 'C语言中的__FILE__、__LINE__和#line';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://ljie123-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   
