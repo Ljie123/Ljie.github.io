@@ -5,9 +5,9 @@
     <entry>
       <title><![CDATA[C语言中的__FILE__、__LINE__和#line]]></title>
       <url>/2017/10/12/C%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84-FILE-%E3%80%81-LINE-%E5%92%8C-line/</url>
-      <content type="html"><![CDATA[<p>C语言中的<strong>FILE</strong>用以指示本行语句所在源文件的文件名</p>
-<p>C语言中的<strong>LINE</strong>用以指示本行语句在源文件中的位置信息，可以通过语句#line来重新设定<strong>LINE</strong>的值</p>
-<p>另外gcc还支持<strong>func</strong>,它指示所在的函数</p>
+      <content type="html"><![CDATA[<p>C语言中的__FILE__用以指示本行语句所在源文件的文件名</p>
+<p>C语言中的___LINE__用以指示本行语句在源文件中的位置信息，可以通过语句#line来重新设定__LINE__的值</p>
+<p>另外gcc还支持__func__,它指示所在的函数</p>
 ]]></content>
       
         <categories>
