@@ -420,11 +420,11 @@
       
 
       
-        <h1 id="通过diff工具生成补丁-patch工具打上补丁"><a href="#通过diff工具生成补丁-patch工具打上补丁" class="headerlink" title="通过diff工具生成补丁, patch工具打上补丁"></a>通过diff工具生成补丁, patch工具打上补丁</h1><h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><h3 id="为单个文件生成补丁"><a href="#为单个文件生成补丁" class="headerlink" title="为单个文件生成补丁"></a>为单个文件生成补丁</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> diff -up linux-2.6.28.8/net/sunrpc/svc.orig.c linux-2.6.28.8/net/sunrpc/svc.c</div></pre></td></tr></table></figure>
+        <h1 id="通过diff工具生成补丁-patch工具打上补丁"><a href="#通过diff工具生成补丁-patch工具打上补丁" class="headerlink" title="通过diff工具生成补丁, patch工具打上补丁"></a>通过diff工具生成补丁, patch工具打上补丁</h1><h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><h3 id="为单个文件生成补丁"><a href="#为单个文件生成补丁" class="headerlink" title="为单个文件生成补丁"></a>为单个文件生成补丁</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> diff -up linux-2.6.28.8/net/sunrpc/svc.orig.c linux-2.6.28.8/net/sunrpc/svc.c</span></div></pre></td></tr></table></figure>
 <p>产生输出</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">diff -up linux-2.6.28.8/net/sunrpc/svc.orig.c 2009-03-17 08:50:04.000000000 +0800</div><div class="line">+++ linux-2.6.28.8/net/sunrpc/svc.c 2009-03-30 19:18:41.859375000 +0800</div><div class="line">@@ -1050,11 +1050,11 @@ svc_process(struct svc_rqst *rqstp)</div></pre></td></tr></table></figure>
-<h3 id="为多个文件生成补丁"><a href="#为多个文件生成补丁" class="headerlink" title="为多个文件生成补丁"></a>为多个文件生成补丁</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> diff -uprN linux-2.6.28.8.orig/net/sunrpc/ linux-2.6.28.8/net/sunrpc/</div></pre></td></tr></table></figure>
-<h3 id="打补丁"><a href="#打补丁" class="headerlink" title="打补丁"></a>打补丁</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> patch -p1 &lt; patch1.diff</div></pre></td></tr></table></figure>
+<h3 id="为多个文件生成补丁"><a href="#为多个文件生成补丁" class="headerlink" title="为多个文件生成补丁"></a>为多个文件生成补丁</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> diff -uprN linux-2.6.28.8.orig/net/sunrpc/ linux-2.6.28.8/net/sunrpc/</span></div></pre></td></tr></table></figure>
+<h3 id="打补丁"><a href="#打补丁" class="headerlink" title="打补丁"></a>打补丁</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> patch -p1 &lt; patch1.diff</span></div></pre></td></tr></table></figure>
 <ul>
 <li>-p1    忽略补丁中的路径的第一级目录</li>
 </ul>
@@ -481,6 +481,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/12/inttypes-h/" rel="prev" title="inttypes.h">
+                inttypes.h <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -567,7 +571,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -578,7 +582,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -589,7 +593,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

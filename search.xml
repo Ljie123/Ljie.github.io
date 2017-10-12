@@ -3,13 +3,42 @@
   
     
     <entry>
+      <title><![CDATA[inttypes.h]]></title>
+      <url>/2017/10/12/inttypes-h/</url>
+      <content type="html"><![CDATA[<h1 id="uint8-t-uint16-t-uint32-t-uint64-t"><a href="#uint8-t-uint16-t-uint32-t-uint64-t" class="headerlink" title="uint8_t / uint16_t / uint32_t /uint64_t"></a>uint8_t / uint16_t / uint32_t /uint64_t</h1><p>_t可以理解为对结构的标注</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span>   <span class="keyword">uint8_t</span>;     <span class="comment">//无符号8位数</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">signed</span>   <span class="keyword">char</span>   <span class="keyword">int8_t</span>;      <span class="comment">//有符号8位数</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span>    <span class="keyword">uint16_t</span>;    <span class="comment">//无符号16位数</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">signed</span>   <span class="keyword">int</span>    <span class="keyword">int16_t</span>;     <span class="comment">//有符号16位数</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">long</span>   <span class="keyword">uint32_t</span>;    <span class="comment">//无符号32位数</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">signed</span>   <span class="keyword">long</span>   <span class="keyword">int32_t</span>;     <span class="comment">//有符号32位数</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">float</span>           float32;     <span class="comment">//单精度浮点数</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">double</span>          float64;     <span class="comment">//双精度浮点数</span></div></pre></td></tr></table></figure>
+<p>一般来说整形对应的*_t类型为：</p>
+<ul>
+<li>uint8_t为1字节    </li>
+<li>uint16_t为2字节  </li>
+<li>uint32_t为4字节    </li>
+<li>uint64_t为8字节    </li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> 语言学习 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> C </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[linux下patch的使用]]></title>
       <url>/2017/10/12/linux%E4%B8%8Bpatch%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
-      <content type="html"><![CDATA[<h1 id="通过diff工具生成补丁-patch工具打上补丁"><a href="#通过diff工具生成补丁-patch工具打上补丁" class="headerlink" title="通过diff工具生成补丁, patch工具打上补丁"></a>通过diff工具生成补丁, patch工具打上补丁</h1><h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><h3 id="为单个文件生成补丁"><a href="#为单个文件生成补丁" class="headerlink" title="为单个文件生成补丁"></a>为单个文件生成补丁</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> diff -up linux-2.6.28.8/net/sunrpc/svc.orig.c linux-2.6.28.8/net/sunrpc/svc.c</div></pre></td></tr></table></figure>
+      <content type="html"><![CDATA[<h1 id="通过diff工具生成补丁-patch工具打上补丁"><a href="#通过diff工具生成补丁-patch工具打上补丁" class="headerlink" title="通过diff工具生成补丁, patch工具打上补丁"></a>通过diff工具生成补丁, patch工具打上补丁</h1><h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><h3 id="为单个文件生成补丁"><a href="#为单个文件生成补丁" class="headerlink" title="为单个文件生成补丁"></a>为单个文件生成补丁</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> diff -up linux-2.6.28.8/net/sunrpc/svc.orig.c linux-2.6.28.8/net/sunrpc/svc.c</span></div></pre></td></tr></table></figure>
 <p>产生输出</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">diff -up linux-2.6.28.8/net/sunrpc/svc.orig.c 2009-03-17 08:50:04.000000000 +0800</div><div class="line">+++ linux-2.6.28.8/net/sunrpc/svc.c 2009-03-30 19:18:41.859375000 +0800</div><div class="line">@@ -1050,11 +1050,11 @@ svc_process(struct svc_rqst *rqstp)</div></pre></td></tr></table></figure>
-<h3 id="为多个文件生成补丁"><a href="#为多个文件生成补丁" class="headerlink" title="为多个文件生成补丁"></a>为多个文件生成补丁</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> diff -uprN linux-2.6.28.8.orig/net/sunrpc/ linux-2.6.28.8/net/sunrpc/</div></pre></td></tr></table></figure>
-<h3 id="打补丁"><a href="#打补丁" class="headerlink" title="打补丁"></a>打补丁</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> patch -p1 &lt; patch1.diff</div></pre></td></tr></table></figure>
+<h3 id="为多个文件生成补丁"><a href="#为多个文件生成补丁" class="headerlink" title="为多个文件生成补丁"></a>为多个文件生成补丁</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> diff -uprN linux-2.6.28.8.orig/net/sunrpc/ linux-2.6.28.8/net/sunrpc/</span></div></pre></td></tr></table></figure>
+<h3 id="打补丁"><a href="#打补丁" class="headerlink" title="打补丁"></a>打补丁</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> patch -p1 &lt; patch1.diff</span></div></pre></td></tr></table></figure>
 <ul>
 <li>-p1    忽略补丁中的路径的第一级目录</li>
 </ul>
@@ -148,9 +177,9 @@
         
         <tags>
             
-            <tag> fuzz </tag>
-            
             <tag> symbolic execution </tag>
+            
+            <tag> fuzz </tag>
             
         </tags>
         
